@@ -1,0 +1,10 @@
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\wasm32-unknown-unknown\debug\deps\js_sys-ccfe6d2283ff0999.d: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\wasm32-unknown-unknown\debug\deps\libjs_sys-ccfe6d2283ff0999.rlib: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\wasm32-unknown-unknown\debug\deps\libjs_sys-ccfe6d2283ff0999.rmeta: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs
+
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs:

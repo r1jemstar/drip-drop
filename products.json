@@ -1,0 +1,224 @@
+{
+  "products": [
+    {
+      "sku": "ARZ-001",
+      "brand_slug": "aritzia-ca",
+      "name": "Wilfred Free Sculpt Knit Tank",
+      "category": "womenswear",
+      "price": 38,
+      "was_price": 55,
+      "affiliate_url": "https://aritzia.com/en/product/example/12345.html",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "LLM-001",
+      "brand_slug": "lululemon",
+      "name": "Align High-Rise Pant 25\"",
+      "category": "womenswear",
+      "price": 79,
+      "was_price": 128,
+      "affiliate_url": "https://shop.lululemon.com/p/example/12345",
+      "sizes": [
+        "2",
+        "4",
+        "6",
+        "8",
+        "10"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "ROOTS-001",
+      "brand_slug": "roots",
+      "name": "Original Cooper Cabin Sweatpant",
+      "category": "womenswear",
+      "price": 64,
+      "was_price": 88,
+      "affiliate_url": "https://roots.com/product/example/12345",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "SSEN-001",
+      "brand_slug": "ssense",
+      "name": "AGOLDE Navy Harper Straight Jeans",
+      "category": "womenswear",
+      "price": 159,
+      "was_price": 370,
+      "affiliate_url": "https://www.ssense.com/en-ca/women/product/agolde/navy-harper-straight-jeans/18646961",
+      "sizes": [
+        "Waist 23",
+        "Waist 24",
+        "Waist 25",
+        "Waist 26",
+        "Waist 27",
+        "Waist 28",
+        "Waist 29",
+        "Waist 30",
+        "Waist 31",
+        "Waist 32"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "SSEN-002",
+      "brand_slug": "ssense",
+      "name": "Acne Studios Blue Mended Denim Shirt",
+      "category": "menswear",
+      "price": 1050,
+      "was_price": 1050,
+      "affiliate_url": "https://www.ssense.com/en-ca/men/product/acne-studios/blue-mended-denim-shirt/18927671",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "ARIT-001",
+      "brand_slug": "aritzia-ca",
+      "name": "BUTTER Essential Cami Tank",
+      "category": "womenswear",
+      "price": 46.4,
+      "was_price": 58,
+      "affiliate_url": "https://www.aritzia.com/en/product/butter-essential-cami-tank/118010.html?color=36572",
+      "sizes": [
+        "2XS",
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "ARIT-002",
+      "brand_slug": "aritzia-ca",
+      "name": "Dally Poplin Boxer Short",
+      "category": "womenswear",
+      "price": 26.6,
+      "was_price": 38,
+      "affiliate_url": "https://www.aritzia.com/en/product/dally-poplin-boxer-short/118438.html?color=31667",
+      "sizes": [
+        "2XS",
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "LULU-001",
+      "brand_slug": "lululemon",
+      "name": "Define Cropped Jacket Nulu",
+      "category": "womenswear",
+      "price": 138,
+      "was_price": 138,
+      "affiliate_url": "https://shop.lululemon.com/en-ca/p/jackets-and-hoodies-jackets/Nulu-Cropped-Define-Jacket/_/prod10930141?color=74028",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "LULU-002",
+      "brand_slug": "lululemon",
+      "name": "Daydrift Oversized Zip-Neck Polo Shirt",
+      "category": "menswear",
+      "price": 118,
+      "was_price": 188,
+      "affiliate_url": "https://shop.lululemon.com/en-ca/p/mens-polos/Daydrift-Oversized-Jersey-Half-Zip-Polo-Shirt/_/prod20001848?color=33454",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "KOTN-001",
+      "brand_slug": "kotn",
+      "name": "Women's Kenza Boatneck Tank",
+      "category": "womenswear",
+      "price": 69,
+      "was_price": 88,
+      "affiliate_url": "https://kotn.com/products/womens-kenza-boatneck-tank?colour=lino",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "KOTN-002",
+      "brand_slug": "kotn",
+      "name": "Classic Stripe Shirt in Stone/Otter/Walnut Stripe",
+      "category": "menswear",
+      "price": 79,
+      "was_price": 138,
+      "affiliate_url": "https://kotn.com/collections/mens-sale",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "sku": "OAKF-001",
+      "brand_slug": "oak-fort",
+      "name": "OW-15956-W-Dark Heather Grey-XXS",
+      "category": "womenswear",
+      "price": 188,
+      "was_price": 188,
+      "affiliate_url": "https://oakandfort.ca/products/short-double-breasted-funnel-neck-trench-coat-ow-15956-w",
+      "sizes": [
+        "XXS",
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "region": "CA",
+      "currency": "CAD"
+    }
+  ]
+}

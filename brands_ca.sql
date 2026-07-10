@@ -1,0 +1,22 @@
+-- All 20 Canadian brands as CA region. Run AFTER migration 0004 is applied.
+INSERT INTO brands (name, slug, region, tier, check_freq, is_canadian, has_affiliate, commission, active) VALUES
+  ('SSENSE',        'ssense',        'CA', 'luxury',     'weekly',  TRUE, TRUE,  0.05, TRUE),
+  ('Aritzia',       'aritzia-ca',    'CA', 'mainstream', 'weekly',  TRUE, TRUE,  0.07, TRUE),
+  ('Lululemon',     'lululemon',     'CA', 'mainstream', 'weekly',  TRUE, TRUE,  0.05, TRUE),
+  ('Kotn',          'kotn',          'CA', 'boutique',   'monthly', TRUE, FALSE, 0.06, TRUE),
+  ('Oak + Fort',    'oak-fort',      'CA', 'boutique',   'monthly', TRUE, FALSE, 0.06, TRUE),
+  ('Mackage',       'mackage',       'CA', 'luxury',     'monthly', TRUE, FALSE, 0.05, TRUE),
+  ('Joe Fresh',     'joe-fresh',     'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.04, TRUE),
+  ('Simons',        'simons',        'CA', 'mainstream', 'weekly',  TRUE, TRUE,  0.05, TRUE),
+  ('Garage',        'garage',        'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.05, TRUE),
+  ('Boutique 1861', 'boutique-1861', 'CA', 'boutique',   'monthly', TRUE, FALSE, 0.06, TRUE),
+  ('Herschel',      'herschel',      'CA', 'mainstream', 'weekly',  TRUE, TRUE,  0.05, TRUE),
+  ('Penningtons',   'penningtons',   'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.04, TRUE),
+  ('Poppy Barley',  'poppy-barley',  'CA', 'boutique',   'monthly', TRUE, FALSE, 0.06, TRUE),
+  ('Urban Planet',  'urban-planet',  'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.04, TRUE),
+  ('Roots',         'roots',         'CA', 'mainstream', 'weekly',  TRUE, TRUE,  0.05, TRUE),
+  ('Kamik',         'kamik',         'CA', 'boutique',   'monthly', TRUE, FALSE, 0.05, TRUE),
+  ('Le Chateau',    'le-chateau',    'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.05, TRUE),
+  ('Matt & Nat',    'matt-nat',      'CA', 'boutique',   'monthly', TRUE, FALSE, 0.06, TRUE),
+  ('Dynamite',      'dynamite',      'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.05, TRUE),
+  ('Reitmans',      'reitmans',      'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.04, TRUE);
