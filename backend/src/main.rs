@@ -37,7 +37,8 @@ async fn main() -> Result<()> {
     let pool_clone = pool.clone();
     tokio::spawn(async move { scraper::run_scheduler(pool_clone).await; });
 
-    let addr = "0.0.0.0:3000";
+    let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
+    let addr = format!("0.0.0.0:{port}");
     tracing::info!("Drip Drop listening on {addr}");
     let listener = tokio::net::TcpListener::bind(addr).await?;
     axum::serve(listener, app).await?;
