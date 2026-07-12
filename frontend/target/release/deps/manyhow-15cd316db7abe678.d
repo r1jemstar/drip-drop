@@ -1,0 +1,11 @@
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\deps\manyhow-15cd316db7abe678.d: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\span_ranged.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\macro_rules.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\error.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\parse_to_tokens.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\deps\libmanyhow-15cd316db7abe678.rlib: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\span_ranged.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\macro_rules.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\error.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\parse_to_tokens.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\deps\libmanyhow-15cd316db7abe678.rmeta: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\span_ranged.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\macro_rules.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\error.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\parse_to_tokens.rs
+
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\lib.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\span_ranged.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\macro_rules.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\error.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\manyhow-0.10.4\src\parse_to_tokens.rs:

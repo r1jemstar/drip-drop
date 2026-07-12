@@ -1,0 +1,14 @@
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\deps\serde-09618c0c4073d2c2.d: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\build\serde-fd2d9342cdebed92\out/private.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\deps\libserde-09618c0c4073d2c2.rlib: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\build\serde-fd2d9342cdebed92\out/private.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\deps\libserde-09618c0c4073d2c2.rmeta: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\build\serde-fd2d9342cdebed92\out/private.rs
+
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs:
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\release\build\serde-fd2d9342cdebed92\out/private.rs:
+
+# env-dep:OUT_DIR=C:\\Users\\rubyj\\drip-drop-workspace\\drip-drop\\frontend\\target\\release\\build\\serde-fd2d9342cdebed92\\out

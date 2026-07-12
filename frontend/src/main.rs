@@ -18,7 +18,7 @@ pub struct Deal {
     pub region:        String,
 }
 
-const API_BASE: &str = "http://localhost:3000";
+const API_BASE: &str = "https://drip-drop-api.onrender.com";
 
 // Currency symbol from code
 fn symbol(currency: &str) -> &str {

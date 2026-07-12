@@ -1,0 +1,10 @@
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\wasm32-unknown-unknown\release\deps\js_sys-bcb5cc01198653df.d: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\wasm32-unknown-unknown\release\deps\libjs_sys-bcb5cc01198653df.rlib: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs
+
+C:\Users\rubyj\drip-drop-workspace\drip-drop\frontend\target\wasm32-unknown-unknown\release\deps\libjs_sys-bcb5cc01198653df.rmeta: C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs
+
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\lib.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\mod.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\queue.rs:
+C:\Users\rubyj\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\js-sys-0.3.103\src\futures\task\singlethread.rs:
