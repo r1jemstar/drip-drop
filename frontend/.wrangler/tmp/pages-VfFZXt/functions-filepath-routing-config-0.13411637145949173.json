@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "routePath": "/geo",
+      "mountPath": "/",
+      "method": "",
+      "module": [
+        "geo.js:onRequest"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
