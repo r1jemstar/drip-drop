@@ -16,6 +16,7 @@ pub struct DealResponse {
     pub drop_percent:  f64,
     pub currency:      String,
     pub affiliate_url: String,
+    pub image_url:     Option<String>,
     pub sizes:         Vec<String>,
     pub in_stock:      bool,
     pub region:        String,
@@ -51,7 +52,7 @@ pub async fn list(
         SELECT
             i.id, i.sku, i.name, b.name AS brand, i.category::text AS category,
             i.current_price::float8, i.was_price::float8, i.drop_percent::float8,
-            i.currency, i.affiliate_url, i.sizes, i.in_stock, i.region
+            i.currency, i.affiliate_url,i.image_url, i.sizes, i.in_stock, i.region
         FROM items i
         JOIN brands b ON b.id = i.brand_id
         WHERE i.region = $1
@@ -62,7 +63,7 @@ pub async fn list(
         "#
     );
 
-    let rows = sqlx::query_as::<_, (Uuid, String, String, String, String, f64, f64, f64, String, String, Vec<String>, bool, String)>(&sql)
+    let rows = sqlx::query_as::<_, (Uuid, String, String, String, String, f64, f64, f64, String, String, Option<String>, Vec<String>, bool, String)>(&sql)
         .bind(&region)
         .bind(min_drop)
         .bind(&category)
@@ -74,7 +75,8 @@ pub async fn list(
     let deals = rows.into_iter().map(|r| DealResponse {
         id: r.0, sku: r.1, name: r.2, brand: r.3, category: r.4,
         current_price: r.5, was_price: r.6, drop_percent: r.7,
-        currency: r.8, affiliate_url: r.9, sizes: r.10, in_stock: r.11, region: r.12,
+        currency: r.8, affiliate_url: r.9, image_url: r.10,
+        sizes: r.11, in_stock: r.12, region: r.13,
     }).collect();
 
     Ok(Json(deals))
@@ -88,7 +90,7 @@ pub async fn get_one(
         r#"
         SELECT i.id, i.sku, i.name, b.name AS brand, i.category::text,
                i.current_price::float8, i.was_price::float8, i.drop_percent::float8,
-               i.currency, i.affiliate_url, i.sizes, i.in_stock, i.region
+               i.currency, i.affiliate_url, i.image_url, i.sizes, i.in_stock, i.region
         FROM items i JOIN brands b ON b.id = i.brand_id
         WHERE i.id = $1
         "#
@@ -101,7 +103,8 @@ pub async fn get_one(
     Ok(Json(row.map(|r| DealResponse {
         id: r.0, sku: r.1, name: r.2, brand: r.3, category: r.4,
         current_price: r.5, was_price: r.6, drop_percent: r.7,
-        currency: r.8, affiliate_url: r.9, sizes: r.10, in_stock: r.11, region: r.12,
+        currency: r.8, affiliate_url: r.9, image_url: r.10,
+        sizes: r.11, in_stock: r.12, region: r.13,
     })))
 }
 
@@ -142,3 +145,4 @@ pub async fn compare_prices(
 ) -> Json<serde_json::Value> {
     Json(serde_json::json!({ "prices": [] }))
 }
+

@@ -1,9 +1,10 @@
 mod api;
 mod auth;
 mod db;
-mod scraper;
+
 mod alerts;
 mod pricing;
+mod ingest;
 
 use anyhow::Result;
 use axum::{Router, http::Method};

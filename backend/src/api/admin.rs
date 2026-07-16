@@ -1,7 +1,7 @@
 //! Admin endpoints for manually adding real products and updating prices.
 //! for manually adding the beginning data
 
-use axum::{extract::State, Json, http::StatusCode};
+use axum::{extract::{Query,State}, Json, http::StatusCode};
 use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 use uuid::Uuid;
@@ -137,4 +137,27 @@ pub async fn add_batch(
     }
 
     Json(BatchResult { added, failed })
+}
+
+#[derive(Debug, Deserialize)]
+pub struct IngestQuery {
+    pub url:    String,
+    pub region: Option<String>,
+    pub brand:  Option<String>,
+}
+
+pub async fn run_ingest(
+    State(pool): State<PgPool>,
+    Query(q): Query<IngestQuery>,
+) -> Result<Json<serde_json::Value>, (StatusCode, String)> {
+    let region = q.region.unwrap_or_else(|| "CA".into());
+    let brand  = q.brand.unwrap_or_else(|| "Unknown".into());
+    let rep = crate::ingest::ingest_feed(&pool, &q.url, &region, &brand)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+    Ok(Json(serde_json::json!({
+        "rows_seen": rep.rows_seen, "parsed": rep.parsed,
+        "upserted": rep.upserted, "drops_found": rep.drops_found,
+        "skips": rep.skips, "errors": rep.errors
+    })))
 }

@@ -23,3 +23,6 @@ uuid       = { workspace = true }
 chrono     = { workspace = true }
 tower-http = { version = "0.5", features = ["cors", "trace"] }
 dotenvy    = "0.15"
+csv = "1.3"
+quick-xml = { version = "0.31", features = ["serialize"] }
+flate2 = "1"

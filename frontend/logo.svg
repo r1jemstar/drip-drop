@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 168" width="168" height="168">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;display=swap');
+      .drip { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; fill: #F2F2ED; }
+      .drop { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; fill: #E8FF4A; }
+    </style>
+  </defs>
+
+  <rect width="168" height="168" fill="#0C0C0C"/>
+  <rect x="0.5" y="0.5" width="167" height="167" fill="none" stroke="#2A2A2A" stroke-width="1"/>
+
+  <text class="drip" x="84" y="80" font-size="38" letter-spacing="-1" text-anchor="middle">Drip</text>
+  <circle cx="84" cy="94" r="4.5" fill="#E8FF4A"/>
+  <text class="drop" x="84" y="130" font-size="38" letter-spacing="-1" text-anchor="middle">Drop</text>
+</svg>

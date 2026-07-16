@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS items_sku_region_idx ON items (sku, region);
