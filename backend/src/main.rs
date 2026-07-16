@@ -35,9 +35,6 @@ async fn main() -> Result<()> {
         .nest("/api", api::router(pool.clone()))
         .layer(cors);
 
-    let pool_clone = pool.clone();
-    tokio::spawn(async move { scraper::run_scheduler(pool_clone).await; });
-
     let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
     let addr = format!("0.0.0.0:{port}");
     tracing::info!("Drip Drop listening on {addr}");

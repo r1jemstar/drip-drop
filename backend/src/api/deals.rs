@@ -86,11 +86,11 @@ pub async fn get_one(
     State(pool): State<PgPool>,
     Path(id): Path<Uuid>,
 ) -> Result<Json<Option<DealResponse>>, (StatusCode, String)> {
-    let row = sqlx::query_as::<_, (Uuid, String, String, String, String, f64, f64, f64, String, String, Vec<String>, bool, String)>(
+    let row = sqlx::query_as::<_, (Uuid, String, String, String, String, f64, f64, f64, String, String, Option<String>, Vec<String>, bool, String)>(
         r#"
         SELECT i.id, i.sku, i.name, b.name AS brand, i.category::text,
-               i.current_price::float8, i.was_price::float8, i.drop_percent::float8,
-               i.currency, i.affiliate_url, i.image_url, i.sizes, i.in_stock, i.region
+                i.current_price::float8, i.was_price::float8, i.drop_percent::float8,
+                i.currency, i.affiliate_url, i.image_url, i.sizes, i.in_stock, i.region
         FROM items i JOIN brands b ON b.id = i.brand_id
         WHERE i.id = $1
         "#
