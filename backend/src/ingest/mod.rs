@@ -103,10 +103,12 @@ fn normalize_category(raw: &str) -> String {
     let s = raw.to_lowercase();
     let has = |terms: &[&str]| terms.iter().any(|t| s.contains(t));
     if has(&["shoe","footwear","trainer","sneaker","boot","sandal","heel","loafer"]) { return "footwear".into(); }
-    if has(&["coat","jacket","blazer","outerwear","parka","gilet","hoodie"]) { return "outerwear".into(); }
-    if has(&["bag","accessor","jewel","hat","scarf","belt","watch","sunglass","purse","wallet"]) { return "accessories".into(); }
+    if has(&["bag","accessor","jewel","hat","scarf","belt","watch","sunglass","purse","wallet","glove"]) { return "accessories".into(); }
+    if has(&["workwear","hi-vis","hi vis","safety","overall","coverall","tabard"]) { return "workwear".into(); }
+    if has(&["men","mens","man"]) { return "menswear".into(); }
     "womenswear".into()
 }
+
 
 fn parse_stock(v: Option<String>) -> bool {
     match v {
@@ -345,12 +347,36 @@ impl IngestReport {
     }
 }
 
+/// "Let's Swim & Co." → "lets-swim-co"
+fn slugify(s: &str) -> String {
+    let mut out = String::new();
+    let mut prev_dash = true; // trims leading dashes
+    for c in s.chars() {
+        if c.is_ascii_alphanumeric() {
+            out.push(c.to_ascii_lowercase());
+            prev_dash = false;
+        } else if !prev_dash {
+            out.push('-');
+            prev_dash = true;
+        }
+    }
+    while out.ends_with('-') { out.pop(); }
+    if out.is_empty() { out.push_str("brand"); }
+    out.chars().take(80).collect()
+}
+
 async fn upsert_brand(pool: &PgPool, name: &str) -> Result<Uuid> {
     let row: Option<(Uuid,)> = sqlx::query_as("SELECT id FROM brands WHERE lower(name) = lower($1)")
         .bind(name).fetch_optional(pool).await?;
     if let Some((id,)) = row { return Ok(id); }
-    let (id,): (Uuid,) = sqlx::query_as("INSERT INTO brands (name) VALUES ($1) RETURNING id")
-        .bind(name).fetch_one(pool).await?;
+
+    let slug = slugify(name);
+    let (id,): (Uuid,) = sqlx::query_as(
+        r#"INSERT INTO brands (name, slug) VALUES ($1, $2)
+           ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name
+           RETURNING id"#
+    )
+    .bind(name).bind(&slug).fetch_one(pool).await?;
     Ok(id)
 }
 
