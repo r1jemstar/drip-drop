@@ -64,13 +64,15 @@ fn country_to_region(c: &str) -> String {
     .to_string()
 }
 
-async fn fetch_deals(region: String) -> Vec<Deal> {
-    let url = format!("{API_BASE}/api/deals?region={region}");
+async fn fetch_deals(region: String, sort: String, sale_only: bool) -> Vec<Deal> {
+    let min_drop = if sale_only { 1 } else { 0 };
+    let url = format!("{API_BASE}/api/deals?region={region}&sort={sort}&min_drop={min_drop}&limit=100");
     match gloo_net::http::Request::get(&url).send().await {
         Ok(r) => r.json::<Vec<Deal>>().await.unwrap_or_default(),
         Err(_) => vec![],
     }
 }
+
 async fn fetch_history(id: String) -> Vec<PricePoint> {
     let url = format!("{API_BASE}/api/deals/{id}/history");
     match gloo_net::http::Request::get(&url).send().await {
@@ -652,6 +654,8 @@ fn HomePage() -> impl IntoView {
     provide_context(recent);
     let (active_tab, set_active_tab) = create_signal("deals".to_string());
     let (active_filter, set_active_filter) = create_signal("all".to_string());
+    let (sort_by, set_sort_by) = create_signal("newest".to_string());
+    let (sale_only, set_sale_only) = create_signal(false);
 
     spawn_local(async move {
         let d = detect_region().await;
@@ -660,8 +664,8 @@ fn HomePage() -> impl IntoView {
     });
 
     let deals = create_resource(
-        move || region.get(),
-        |r| async move { fetch_deals(r).await },
+        move || (region.get(), sort_by.get(), sale_only.get()),
+        |(r, sort, sale)| async move { fetch_deals(r, sort, sale).await },
     );
     let region_name = move || match region.get().as_str() {
         "GB" => "United Kingdom",
@@ -796,7 +800,7 @@ fn HomePage() -> impl IntoView {
                         <div class="hero">
                             <div class="hero-eyebrow">"— Price drops. Updated daily."</div>
                             <h1 class="hero-title">"Quality drips with the best "<em>"drops."</em></h1>
-                            <p class="hero-tagline">"Track prices across Canadian brands and more. Get alerts the moment your wishlist drops — before everyone else finds out."</p>
+                            <p class="hero-tagline">"A shop that shows its receipts. Browse real products, track real prices, and catch the genuine drops — never a fake \"was\" price."</p>
                             <div class="hero-actions">
                                 <button class="btn-primary" on:click=move |_| set_panel_open.set(true)>"Follow your brands"</button>
                                 <button class="btn-ghost" on:click=move |_| set_active_tab.set("boards".into())>"My Style Boards"</button>
@@ -829,10 +833,23 @@ fn HomePage() -> impl IntoView {
                             <div class="fchip" class:active=move || active_filter.get() == "accessories"
                                 on:click=move |_| set_active_filter.set("accessories".into())>"👜 Accessories"</div>
                         </div>
-
+                        
+                        <div class="shop-controls">
+                            <div class="sale-toggle" class:on=move || sale_only.get()
+                                on:click=move |_| set_sale_only.update(|v| *v = !*v)>
+                                <span class="sale-dot"></span>"On sale only"
+                            </div>
+                            <select class="sort-select" on:change=move |e| set_sort_by.set(event_target_value(&e))>
+                                <option value="newest">"Newest"</option>
+                                <option value="drop">"Biggest drop"</option>
+                                <option value="price_asc">"Price: low to high"</option>
+                                <option value="price_desc">"Price: high to low"</option>
+                            </select>
+                        </div>
+                        
                         <RecentStrip on_open=set_modal_deal/>
 
-                        <div class="sec-hdr"><div class="sec-title">"Today's drops — "{region_name}</div></div>
+                        <div class="sec-hdr"><div class="sec-title">"Shop — "{region_name}</div></div>
 
                         <div class="deal-grid">
                             <Suspense fallback=move || view!{ <div class="loading">"Loading deals…"</div> }>
