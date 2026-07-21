@@ -403,3 +403,13 @@ nav{
 @media(max-width:640px){.cookie-notice{flex-direction:column;align-items:stretch}}
 
 .card-photo{width:100%;height:100%;object-fit:cover;display:block}
+
+.shop-controls{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.sale-toggle{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--border);
+  border-radius:100px;font-size:13px;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none}
+.sale-toggle:hover{border-color:var(--border2)}
+.sale-toggle.on{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.sale-dot{width:8px;height:8px;border-radius:50%;background:var(--muted2);transition:background .15s}
+.sale-toggle.on .sale-dot{background:var(--accent)}
+.sort-select{margin-left:auto;padding:8px 14px;border:1px solid var(--border);border-radius:100px;
+  background:var(--surface);color:var(--text);font-size:13px;font-family:var(--font);cursor:pointer;outline:none}

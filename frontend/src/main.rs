@@ -5,6 +5,8 @@ mod legal;
 use legal::{Privacy, Terms, Disclosure, Footer,CookieNotice};
 use leptos_router::*;
 
+type DealsRes = Resource<(String, String, bool), Vec<Deal>> ;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Deal {
     pub id: String,
@@ -465,10 +467,7 @@ fn RecentStrip(on_open: WriteSignal<Option<Deal>>) -> impl IntoView {
 
 // ───────────────────────── TRENDING ─────────────────────────
 #[component]
-fn TrendingTab(
-    deals: Resource<String, Vec<Deal>>,
-    on_open: WriteSignal<Option<Deal>>,
-) -> impl IntoView {
+fn TrendingTab(deals: DealsRes , on_open: WriteSignal<Option<Deal>>) -> impl IntoView {
     let ranked = move || {
         let mut v = deals.get().unwrap_or_default();
         v.sort_by(|a, b| {
@@ -507,7 +506,7 @@ fn TrendingTab(
 
 // ───────────────────────── OUTFIT BUILDER ─────────────────────────
 #[component]
-fn OutfitTab(deals: Resource<String, Vec<Deal>>) -> impl IntoView {
+fn OutfitTab(deals: DealsRes ) -> impl IntoView {
     let slots = create_rw_signal::<HashMap<&'static str, Deal>>(HashMap::new());
     let (search, set_search) = create_signal(String::new());
     let defs = [
@@ -606,7 +605,7 @@ fn OutfitTab(deals: Resource<String, Vec<Deal>>) -> impl IntoView {
 
 // ───────────────────────── BRANDS (live-counted) ─────────────────────────
 #[component]
-fn BrandsTab(deals: Resource<String, Vec<Deal>>) -> impl IntoView {
+fn BrandsTab(deals: DealsRes ) -> impl IntoView {
     let followed = create_rw_signal::<HashSet<String>>(HashSet::new());
     let excluded = create_rw_signal::<HashSet<String>>(HashSet::new());
     view! {
