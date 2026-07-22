@@ -37,7 +37,7 @@ const A_PRICE: &[&str] = &["search_price","price","sale_price","current_price","
 const A_WAS:   &[&str] = &["rrp_price","rrp","was_price","base_price","list_price","regular_price","msrp","original_price","store_price"];
 const A_CUR:   &[&str] = &["currency","currency_code","price_currency"];
 const A_URL:   &[&str] = &["aw_deep_link","deep_link","affiliate_url","link","product_url","merchant_deep_link","url","tracking_url"];
-const A_IMG:   &[&str] = &["aw_image_url","large_image","merchant_image_url","image_url","image","image_link","thumb_url"];
+const A_IMG:   &[&str] = &["large_image","merchant_image_url","aw_image_url","image_url","image","image_link","thumb_url"];
 const A_SIZE:  &[&str] = &["size","sizes","variant_size","available_sizes","size_stock_amount"];
 const A_STOCK: &[&str] = &["in_stock","stock_status","availability","is_available","stock"];
 
@@ -450,4 +450,51 @@ pub async fn ingest_feed(
         }
     }
     Ok(rep)
+}
+
+#[derive(Debug, sqlx::FromRow)]
+pub struct FeedRow {
+    pub id:             Uuid,
+    pub label:          String,
+    pub url:            String,
+    pub region:         String,
+    pub fallback_brand: String,
+}
+
+/// Ingest every feed whose interval has elapsed. Returns per-feed reports.
+pub async fn run_due_feeds(pool: &PgPool) -> Result<Vec<(String, IngestReport)>> {
+    let due: Vec<FeedRow> = sqlx::query_as(
+        r#"
+        SELECT id, label, url, region, fallback_brand
+        FROM feeds
+        WHERE active
+          AND (last_run_at IS NULL
+               OR last_run_at < NOW() - (interval_hours || ' hours')::interval)
+        ORDER BY last_run_at NULLS FIRST
+        "#
+    )
+    .fetch_all(pool)
+    .await?;
+
+    let mut out = Vec::new();
+    for f in due {
+        let res = ingest_feed(pool, &f.url, &f.region, &f.fallback_brand).await;
+        let status = match &res {
+            Ok(r)  => format!("ok: {} upserted, {} drops", r.upserted, r.drops_found),
+            Err(e) => format!("error: {e}"),
+        };
+        sqlx::query("UPDATE feeds SET last_run_at = NOW(), last_status = $2 WHERE id = $1")
+            .bind(f.id).bind(&status)
+            .execute(pool).await.ok();
+
+        match res {
+            Ok(r)  => out.push((f.label, r)),
+            Err(e) => {
+                let mut rep = IngestReport::default();
+                rep.errors.push(e.to_string());
+                out.push((f.label, rep));
+            }
+        }
+    }
+    Ok(out)
 }

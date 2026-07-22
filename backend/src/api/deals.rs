@@ -44,7 +44,8 @@ pub async fn list(
     let order = match q.sort.as_deref() {
         Some("price_asc")  => "i.current_price ASC",
         Some("price_desc") => "i.current_price DESC",
-        _                   => "i.drop_percent DESC",  // default
+        Some("drop")       => "i.drop_percent DESC",
+        _                   => "i.updated_at DESC",   // default
     };
 
     let sql = format!(

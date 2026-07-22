@@ -11,6 +11,7 @@ use sqlx::PgPool;
 
 pub fn router(pool: PgPool) -> Router {
     Router::new()
+        .route("/admin/ingest/due",    post(admin::run_due))
         .route("/admin/ingest",    post(admin::run_ingest))
         .route("/admin/products",      post(admin::add_product))
         .route("/admin/products/price",put(admin::update_price))

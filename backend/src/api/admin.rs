@@ -161,3 +161,26 @@ pub async fn run_ingest(
         "skips": rep.skips, "errors": rep.errors
     })))
 }
+
+pub async fn run_due(
+    State(pool): State<PgPool>,
+    headers: axum::http::HeaderMap,
+) -> Result<Json<serde_json::Value>, (StatusCode, String)> {
+    let token = std::env::var("INGEST_TOKEN").unwrap_or_default();
+    let got = headers.get("x-ingest-token").and_then(|v| v.to_str().ok()).unwrap_or("");
+    if token.is_empty() || got != token {
+        return Err((StatusCode::UNAUTHORIZED, "bad token".into()));
+    }
+
+    let reports = crate::ingest::run_due_feeds(&pool)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+
+    let body: Vec<_> = reports.into_iter().map(|(label, r)| serde_json::json!({
+        "feed": label, "rows_seen": r.rows_seen, "parsed": r.parsed,
+        "upserted": r.upserted, "drops_found": r.drops_found,
+        "skips": r.skips, "errors": r.errors
+    })).collect();
+
+    Ok(Json(serde_json::json!({ "feeds_run": body.len(), "reports": body })))
+}
