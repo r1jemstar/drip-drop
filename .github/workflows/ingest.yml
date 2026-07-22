@@ -1,0 +1,25 @@
+name: Feed Ingest
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run due feeds
+        run: |
+          curl -sS --fail-with-body -X POST \
+            -H "x-ingest-token: ${{ secrets.INGEST_TOKEN }}" \
+            "https://drip-drop-api.onrender.com/api/admin/ingest/due" \
+            -o result.json
+          cat result.json
+
+      - name: Fail if any feed errored
+        run: |
+          if grep -q '"errors":\[[^]]' result.json; then
+            echo "One or more feeds reported errors"
+            exit 1
+          fi
