@@ -19,4 +19,4 @@ INSERT INTO brands (name, slug, region, tier, check_freq, is_canadian, has_affil
   ('Le Chateau',    'le-chateau',    'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.05, TRUE),
   ('Matt & Nat',    'matt-nat',      'CA', 'boutique',   'monthly', TRUE, FALSE, 0.06, TRUE),
   ('Dynamite',      'dynamite',      'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.05, TRUE),
-  ('Reitmans',      'reitmans',      'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.04, TRUE);
+  ('Reitmans',      'reitmans',      'CA', 'mainstream', 'weekly',  TRUE, FALSE, 0.04, TRUE
