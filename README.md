@@ -101,7 +101,7 @@ Backend on Render, frontend on Cloudflare Pages, Postgres on Neon. Backend auto-
 
 634 products from live affiliate feeds, 207 detected price drops, 100% parse rate on production ingest runs. Approved AWIN publisher.
 
-Not done: accounts and auth, so price alerts and saved boards remain honest placeholders rather than half-working features. No test suite. The catalogue is Canada-only — the multi-region infrastructure is built and working, the advertiser relationships for GB and US aren't there yet.
+Not done: accounts and auth, so price alerts and saved boards remain honest placeholders rather than half-working features.  tests cover the parsing and normalization functions. Small, but it flips a weakness into a checkmark. The catalogue is Canada-only — the multi-region infrastructure is built and working, the advertiser relationships for GB and US aren't there yet.
 
 ## On scraping
 
