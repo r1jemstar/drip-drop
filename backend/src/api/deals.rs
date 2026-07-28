@@ -59,6 +59,8 @@ pub async fn list(
         WHERE i.region = $1
           AND i.drop_percent >= $2
           AND ($3::text IS NULL OR i.category::text = $3)
+          AND i.in_stock = true
+          AND i.last_seen_at > NOW() - INTERVAL '48 hours'
         ORDER BY {order}
         LIMIT $4
         "#

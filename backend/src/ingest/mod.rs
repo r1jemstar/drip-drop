@@ -101,14 +101,19 @@ fn parse_currency(explicit: Option<&str>, price_raw: &str, region: &str) -> Stri
 /// Map messy category strings onto our 4 buckets.
 fn normalize_category(raw: &str) -> String {
     let s = raw.to_lowercase();
-    let has = |terms: &[&str]| terms.iter().any(|t| s.contains(t));
-    if has(&["shoe","footwear","trainer","sneaker","boot","sandal","heel","loafer"]) { return "footwear".into(); }
-    if has(&["bag","accessor","jewel","hat","scarf","belt","watch","sunglass","purse","wallet","glove"]) { return "accessories".into(); }
-    if has(&["workwear","hi-vis","hi vis","safety","overall","coverall","tabard"]) { return "workwear".into(); }
-    if has(&["men","mens","man"]) { return "menswear".into(); }
+    let words: std::collections::HashSet<&str> = s
+        .split(|c: char| !c.is_alphanumeric())
+        .filter(|w| !w.is_empty())
+        .collect();
+    let hasw = |terms: &[&str]| terms.iter().any(|t| words.contains(t));
+    let hass = |terms: &[&str]| terms.iter().any(|t| s.contains(t));
+
+    if hasw(&["shoe","shoes","footwear","trainer","trainers","sneaker","sneakers","boot","boots","sandal","sandals","heel","heels","loafer","loafers"]) { return "footwear".into(); }
+    if hasw(&["bag","bags","handbag","backpack","purse","wallet","hat","scarf","belt","watch","sunglasses","glove","gloves"]) || hass(&["accessor","jewel"]) { return "accessories".into(); }
+    if hasw(&["workwear","vis","safety","overall","overalls","coverall","tabard"]) || hass(&["hi-vis","hi vis"]) { return "workwear".into(); }
+    if hasw(&["men","mens"]) { return "menswear".into(); }
     "womenswear".into()
 }
-
 
 fn parse_stock(v: Option<String>) -> bool {
     match v {
@@ -390,11 +395,11 @@ async fn upsert_item(pool: &PgPool, it: &RawItem, brand_id: Uuid) -> Result<Uuid
         sqlx::query(
             r#"UPDATE items SET name=$2, brand_id=$3, category=$4::text::category,
                 affiliate_url=$5, image_url=COALESCE($6, image_url), sizes=$7,
-                in_stock=$8, currency=$9, updated_at=NOW()
+                in_stock=$8, currency=$9, updated_at=NOW(), last_seen_at=NOW()
                 WHERE id=$1"#
         )
         .bind(id).bind(&it.name).bind(brand_id).bind(&it.category)
-        .bind(&it.affiliate_url).bind(&it.image_url).bind(&it.sizes)
+        .bind(&it.image_url).bind(&it.sizes)
         .bind(it.in_stock).bind(&it.currency)
         .execute(pool).await?;
         return Ok(id);
@@ -498,3 +503,174 @@ pub async fn run_due_feeds(pool: &PgPool) -> Result<Vec<(String, IngestReport)>>
     }
     Ok(out)
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // ── parse_money ──
+    #[test]
+    fn money_plain() {
+        assert_eq!(parse_money("34.99"), Some(34.99));
+        assert_eq!(parse_money("129"), Some(129.0));
+        assert_eq!(parse_money("0.50"), Some(0.50));
+    }
+
+    #[test]
+    fn money_with_symbols() {
+        assert_eq!(parse_money("£34.99"), Some(34.99));
+        assert_eq!(parse_money("C$ 1,299.00"), Some(1299.00));
+        assert_eq!(parse_money("$19.95 USD"), Some(19.95));
+        assert_eq!(parse_money("€ 45"), Some(45.0));
+    }
+
+    #[test]
+    fn money_thousands_us() {
+        // comma thousands, dot decimal
+        assert_eq!(parse_money("1,299.00"), Some(1299.00));
+        assert_eq!(parse_money("12,345.67"), Some(12345.67));
+    }
+
+    #[test]
+    fn money_european() {
+        // dot thousands, comma decimal
+        assert_eq!(parse_money("1.299,00"), Some(1299.00));
+        assert_eq!(parse_money("34,99"), Some(34.99));
+        assert_eq!(parse_money("1.234.567,89"), Some(1234567.89));
+    }
+
+    #[test]
+    fn money_ambiguous_single_separator() {
+        // "1.299" — is it 1299 (thousands) or 1.299 (decimal)?
+        // 3 trailing digits + long enough → treated as thousands
+        assert_eq!(parse_money("1.299"), Some(1299.0));
+        // "34.99" — 2 trailing → decimal
+        assert_eq!(parse_money("34.99"), Some(34.99));
+        // "1,299" comma + 3 trailing → thousands
+        assert_eq!(parse_money("1,299"), Some(1299.0));
+        // "34,5" comma + <=2 trailing → decimal
+        assert_eq!(parse_money("34,5"), Some(34.5));
+    }
+
+    #[test]
+    fn money_junk_and_empty() {
+        assert_eq!(parse_money(""), None);
+        assert_eq!(parse_money("free"), None);
+        assert_eq!(parse_money("N/A"), None);
+        assert_eq!(parse_money("£"), None);
+        assert_eq!(parse_money("--"), None);
+    }
+
+    #[test]
+    fn money_rejects_zero_and_negative() {
+        // guard: price must be > 0 and finite
+        assert_eq!(parse_money("0"), None);
+        assert_eq!(parse_money("0.00"), None);
+        assert_eq!(parse_money("-5.00"), None);
+    }
+
+    // ── normalize_category ──
+    #[test]
+    fn category_footwear() {
+        assert_eq!(normalize_category("Women's Shoes"), "footwear");
+        assert_eq!(normalize_category("SNEAKERS"), "footwear");
+        assert_eq!(normalize_category("Chelsea Boot"), "footwear");
+        assert_eq!(normalize_category("high heel sandal"), "footwear");
+    }
+
+    #[test]
+    fn category_accessories() {
+        assert_eq!(normalize_category("Handbag"), "accessories");
+        assert_eq!(normalize_category("Gold Jewellery"), "accessories");
+        assert_eq!(normalize_category("Leather Belt"), "accessories");
+    }
+
+    #[test]
+    fn category_menswear() {
+        assert_eq!(normalize_category("Mens Shirts"), "menswear");
+        assert_eq!(normalize_category("men's trousers"), "menswear");
+    }
+
+    #[test]
+    fn category_workwear() {
+        assert_eq!(normalize_category("Hi-Vis Jacket"), "workwear");
+        assert_eq!(normalize_category("safety coverall"), "workwear");
+    }
+
+    #[test]
+    fn category_default_womenswear() {
+        // unknown / empty falls through to womenswear
+        assert_eq!(normalize_category(""), "womenswear");
+        assert_eq!(normalize_category("Midi Dress"), "womenswear");
+        assert_eq!(normalize_category("random garbage"), "womenswear");
+    }
+
+    #[test]
+    fn category_precedence() {
+        // footwear checked before menswear — "men's shoes" is footwear, not menswear
+        assert_eq!(normalize_category("Men's Shoes"), "footwear");
+    }
+
+    // ── slugify ──
+    #[test]
+    fn slug_basic() {
+        assert_eq!(slugify("Lululemon"), "lululemon");
+        assert_eq!(slugify("New Look"), "new-look");
+    }
+
+    #[test]
+    fn slug_messy() {
+        assert_eq!(slugify("Let's Swim & Co."), "let-s-swim-co");
+        assert_eq!(slugify("encalife (US & Canada)"), "encalife-us-canada");
+        assert_eq!(slugify("  spaced  out  "), "spaced-out");
+        assert_eq!(slugify("Needs No Label"), "needs-no-label");
+    }
+
+    #[test]
+    fn slug_edge() {
+        assert_eq!(slugify(""), "brand");
+        assert_eq!(slugify("!!!"), "brand");
+        assert_eq!(slugify("---"), "brand");
+    }
+
+    // ── parse_stock ──
+    #[test]
+    fn stock_truthy() {
+        assert!(parse_stock(None)); // absent = assume in stock
+        assert!(parse_stock(Some("1".into())));
+        assert!(parse_stock(Some("true".into())));
+        assert!(parse_stock(Some("in stock".into())));
+        assert!(parse_stock(Some("yes".into())));
+    }
+
+    #[test]
+    fn stock_falsy() {
+        assert!(!parse_stock(Some("0".into())));
+        assert!(!parse_stock(Some("false".into())));
+        assert!(!parse_stock(Some("out of stock".into())));
+        assert!(!parse_stock(Some("OOS".into())));
+        assert!(!parse_stock(Some("unavailable".into())));
+    }
+
+    // ── parse_sizes ──
+    #[test]
+    fn sizes_delimiters() {
+        assert_eq!(parse_sizes(Some("S,M,L".into())), vec!["S","M","L"]);
+        assert_eq!(parse_sizes(Some("S|M|L".into())), vec!["S","M","L"]);
+        assert_eq!(parse_sizes(Some("S; M; L".into())), vec!["S","M","L"]);
+    }
+
+    #[test]
+    fn sizes_empty_and_junk() {
+        assert_eq!(parse_sizes(None), Vec::<String>::new());
+        assert_eq!(parse_sizes(Some("".into())), Vec::<String>::new());
+        assert_eq!(parse_sizes(Some(",,,".into())), Vec::<String>::new());
+    }
+}
+
+#[test]
+    fn category_women_not_men() {
+        assert_eq!(normalize_category("Womens Dress"), "womenswear");
+        assert_eq!(normalize_category("Women's Blazer"), "womenswear");
+    }
