@@ -23,7 +23,12 @@ async fn main() -> Result<()> {
         .init();
 
     let db_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let pool = PgPoolOptions::new().max_connections(10).connect(&db_url).await?;
+    let pool = PgPoolOptions::new()
+        .max_connections(10)
+        .min_connections(0)
+        .idle_timeout(std::time::Duration::from_secs(30))
+        .connect(&db_url)
+        .await?;
     sqlx::migrate!("../migrations").run(&pool).await?;
     tracing::info!("DB migrations applied");
 
